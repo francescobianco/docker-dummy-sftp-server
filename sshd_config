@@ -23,21 +23,22 @@ MACs hmac-sha2-512,hmac-sha2-256,hmac-ripemd160
 MaxAuthTries 2
 MaxSessions 10
 MaxStartups 10:30:100
-PasswordAuthentication yes
+PasswordAuthentication no
 PermitEmptyPasswords no
 PermitRootLogin no
 PermitTunnel no
 PermitUserEnvironment no
 PrintMotd no
 Protocol 2
-PubkeyAuthentication no
+PubkeyAuthentication yes
 StrictModes yes
 Subsystem sftp /usr/lib/openssh/sftp-server -f AUTHPRIV -l info
 SyslogFacility AUTH
 TCPKeepAlive no
-UsePrivilegeSeparation sandbox
 X11Forwarding no
 X11UseLocalhost yes
+# Allow ssh keys from chroot
+#AuthorizedKeysFile  /chroot/in/.ssh/authorized_keys
 
 AllowGroups sftp
 Match Group sftp
