@@ -25,7 +25,7 @@ version: '2'
 services:
   # SSHD Server
   sshtest:
-    image: checkout/dummy-sftp-server
+    image: checkoutfinland/dummy-sftp-server
     environment:
       # Username for the login
       USERNAME: sftp
