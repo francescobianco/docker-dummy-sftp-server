@@ -39,11 +39,18 @@ if [ "$1" == '/usr/sbin/sshd' ]; then
     mount --bind $FOLDER /chroot${FOLDER}
   fi
 
+  # Allow overriding the default AuthorizedKeysFile path
+  AUTHORIZED_KEYS_FILE=${PUBLIC_KEYS_FILE-$FOLDER/.ssh/authorized_keys}
+
   # Allow using public key
   if [ "$PUBLIC_KEY" != "" ]; then
-    mkdir -p $FOLDER/.ssh
-    echo $PUBLIC_KEY > $FOLDER/.ssh/authorized_keys
-    sed -i -e "s|#AuthorizedKeysFile.*|AuthorizedKeysFile $FOLDER/.ssh/authorized_keys|g" /etc/ssh/sshd_config
+    mkdir -p $(dirname $AUTHORIZED_KEYS_FILE)
+    echo $PUBLIC_KEY > $AUTHORIZED_KEYS_FILE
+  fi
+
+  # Allow mounting the authorized keys file from different path
+  if [ "$PUBLIC_KEY" != "" ] || [ "$PUBLIC_KEYS_FILE" != "" ]; then
+    sed -i -e "s|#AuthorizedKeysFile.*|AuthorizedKeysFile $AUTHORIZED_KEYS_FILE|g" /etc/ssh/sshd_config
   fi
 
   # Change the default port

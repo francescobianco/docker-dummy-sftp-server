@@ -27,15 +27,17 @@ services:
   sshtest:
     image: checkoutfinland/dummy-sftp-server
     environment:
-      # Username for the login
+      # (mandatory) Username for the login
       USERNAME: sftp
-      # Use dummy ssh key you generated for this test
+      # (optional) Use dummy ssh key you generated for this test
       PUBLIC_KEY: ssh-rsa AAAA....
-      # Should be the same as the volume mapping of app container
+      # (optional) Use custom path for AuthorizedKeysFile
+      PUBLIC_KEYS_PATH: /etc/ssh/authorized_keys
+      # (optional) Use the path of mapped volume, default: /in
       FOLDER: /in
-      # Optional: chroot
+      # (optional) put the $FOLDER inside chroot, default: 1
       CHROOT: 1
-      # Optional: PORT
+      # (optional) use custom port number, default: 22
       PORT: 2238
     cap_add:
       # Required if you want to chroot
