@@ -57,7 +57,7 @@ describe docker_build('.', tag: 'dummy-sftp-server') do
       end
 
       describe command('echo version | sshpass -p password sftp -o StrictHostKeyChecking=no -P 12345 sftp@localhost') do
-        its(:stderr) { should include 'Connected to localhost' }
+        its(:stderr) { should include 'Connected to' } # Newer sftp says: 'Connected to sftp@localhost' older says 'Connected to localhost'
         its(:stdout) { should include 'SFTP protocol version 3' }
       end
     end
