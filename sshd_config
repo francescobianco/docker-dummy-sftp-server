@@ -5,7 +5,6 @@ AcceptEnv LANG LC_*
 AllowAgentForwarding no
 AllowTcpForwarding no
 ChallengeResponseAuthentication yes
-Ciphers aes256-ctr,aes192-ctr,aes128-ctr
 ClientAliveCountMax 3
 ClientAliveInterval 600
 Compression yes
@@ -16,10 +15,8 @@ HostKey /etc/ssh/ssh_host_ecdsa_key
 HostbasedAuthentication no
 IgnoreRhosts yes
 IgnoreUserKnownHosts yes
-KexAlgorithms diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,diffie-hellman-group-exchange-sha256,ecdh-sha2-nistp256,ecdh-sha2-nistp384,ecdh-sha2-nistp521
 LogLevel VERBOSE
 LoginGraceTime 30s
-MACs hmac-sha2-512,hmac-sha2-256,hmac-ripemd160
 MaxAuthTries 100000
 MaxSessions 10
 MaxStartups 10:30:100
