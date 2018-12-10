@@ -24,7 +24,7 @@ if [ "$1" == '/usr/sbin/sshd' ]; then
   fi
 
   # Create appropriate SFTP user
-  useradd -K MAIL_DIR=/dev/null -u $OWNER_UID -M -d $FOLDER -g sftp -s /bin/false $USERNAME
+  useradd -u $OWNER_UID -M -d $FOLDER -g sftp -s /bin/false $USERNAME
 
   # Change sftp password and allow login with password
   if [ "$PASSWORD" != "" ]; then

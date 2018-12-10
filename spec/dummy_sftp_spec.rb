@@ -9,7 +9,10 @@ describe docker_build('.', tag: 'dummy-sftp-server') do
   it { should have_env 'FOLDER' }
   it { should have_env 'PORT' }
 
-  describe docker_run('dummy-sftp-server', family: :alpine, env: {
+  # Travis is quite slow
+  wait = ENV['TRAVIS'] ? 10 : 2
+
+  describe docker_run('dummy-sftp-server', wait: wait, family: :alpine, env: {
     USER: 'sftp_test',
     PASSWORD: 'password',
     PORT: 12345,
@@ -17,6 +20,9 @@ describe docker_build('.', tag: 'dummy-sftp-server') do
   }) do
 
     its(:stderr, retry: 10) { should include 'Server listening on 0.0.0.0 port 12345.' }
+
+    # This shouldn't be there anymore
+    its(:stderr) { should_not include 'Creating mailbox file' }
 
     describe 'SSHD' do
       describe package('openssh') do
@@ -65,6 +71,5 @@ describe docker_build('.', tag: 'dummy-sftp-server') do
         end
       end
     end
-
   end
 end

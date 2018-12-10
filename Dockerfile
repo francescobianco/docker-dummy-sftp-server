@@ -8,6 +8,9 @@ RUN apk add --no-cache openssh bash shadow tzdata
 # Ensure key creation
 RUN rm -rf /etc/ssh/ssh_host_rsa_key /etc/ssh/ssh_host_dsa_key /etc/ssh/ssh_host_ecdsa_key
 
+# Don't create mailboxes for users
+RUN sed -i 's/^CREATE_MAIL_SPOOL=yes/CREATE_MAIL_SPOOL=no/' /etc/default/useradd
+RUN addgroup sftp
 
 # Create entrypoint script
 COPY docker-entrypoint.sh /
@@ -15,7 +18,6 @@ RUN chmod +x /docker-entrypoint.sh
 
 # SSH Server configuration file
 COPY sshd_config /etc/ssh/sshd_config
-RUN addgroup sftp
 
 # Default environment variables
 ENV TZ="Europe/Helsinki" \
