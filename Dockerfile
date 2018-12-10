@@ -23,8 +23,8 @@ ENV TZ="Europe/Helsinki" \
     FOLDER="/in" \
     OWNER_UID=1000 \
     CHROOT=1 \
-    USERNAME=sftp \
-    PASSWORD=password
+    PORT=22 \
+    USERNAME=sftp
 
 EXPOSE 22
 ENTRYPOINT [ "/docker-entrypoint.sh" ]

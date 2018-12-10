@@ -24,11 +24,12 @@ if [ "$1" == '/usr/sbin/sshd' ]; then
   fi
 
   # Create appropriate SFTP user
-  useradd -u $OWNER_UID -M -d $FOLDER -g sftp -s /bin/false $USERNAME
+  useradd -K MAIL_DIR=/dev/null -u $OWNER_UID -M -d $FOLDER -g sftp -s /bin/false $USERNAME
 
-  # Change sftp password
+  # Change sftp password and allow login with password
   if [ "$PASSWORD" != "" ]; then
     echo "$USERNAME:$PASSWORD" | chpasswd
+    sed -i -e "s|^PasswordAuthentication.*|PasswordAuthentication yes|" /etc/ssh/sshd_config
   fi
 
   # Mount the data folder in the chroot folder
@@ -55,11 +56,11 @@ if [ "$1" == '/usr/sbin/sshd' ]; then
 
   # Change the default port
   if [ "$PORT" != '' ]; then
-    sed "s|^Port.*|Port $PORT|" /etc/ssh/sshd_config
+    sed -i -e "s|^Port.*|Port $PORT|" /etc/ssh/sshd_config
   fi
 
   # Add custom port here
-  exec "$@" -p $PORT
+  exec "$@"
 else
   exec "$@"
 fi
