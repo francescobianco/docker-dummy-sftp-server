@@ -1,5 +1,6 @@
 SFTP dummy server for docker
 ======================
+[![Build Status](https://travis-ci.org/CheckoutFinland/docker-dummy-sftp-server.svg?branch=master)](https://travis-ci.org/CheckoutFinland/docker-dummy-sftp-server)
 
 This is used as a dummy sftp server in some of our integration tests.
 
