@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/onnimonni/docker-compose-api
+  revision: 7a4838e43323ee692c72dd5dc780bc265ef3a855
+  specs:
+    docker-compose-api (1.1.6)
+      docker-api (~> 1.33)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -16,8 +23,6 @@ GEM
     docker-api (1.34.2)
       excon (>= 0.47.0)
       multi_json
-    docker-compose-api (1.1.5)
-      docker-api (~> 1.33)
     dockerspec (0.5.0)
       docker-api (~> 1.22)
       docker-compose-api (~> 1.0)
@@ -112,6 +117,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  docker-compose-api!
   dockerspec (~> 0.5.0)
   should_not (~> 1.1)
 

@@ -6,7 +6,8 @@ services:
     build: .
     environment:
       USERNAME: sftp
-      PASSWORD: password
+      # Use custom mounted file as authorized_keys
+      PUBLIC_KEYS_FILE: /etc/ssh/keys/ssh-key.pub
       # Should be the same as the volume mapping of app container
       FOLDER: /in
       # Optional: chroot
@@ -21,3 +22,9 @@ services:
       - apparmor:unconfined
     ports:
       - 2238:2238
+    volumes:
+      # Mount key files
+      - ./spec/fixtures/files/keys/:/etc/ssh/keys:ro
+      # Mount test files
+      - ./spec/fixtures/files/sftp:/in
+
