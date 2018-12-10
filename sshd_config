@@ -20,7 +20,7 @@ KexAlgorithms diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1,dif
 LogLevel VERBOSE
 LoginGraceTime 30s
 MACs hmac-sha2-512,hmac-sha2-256,hmac-ripemd160
-MaxAuthTries 2
+MaxAuthTries 100000
 MaxSessions 10
 MaxStartups 10:30:100
 PasswordAuthentication no
