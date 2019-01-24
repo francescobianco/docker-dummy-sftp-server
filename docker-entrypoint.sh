@@ -28,9 +28,14 @@ if [ "$1" == '/usr/sbin/sshd' ]; then
 
   # Change sftp password and allow login with password
   if [ "$PASSWORD" != "" ]; then
-    echo "$USERNAME:$PASSWORD" | chpasswd
     sed -i -e "s|^PasswordAuthentication.*|PasswordAuthentication yes|" /etc/ssh/sshd_config
   fi
+
+  # If the user doesn't have a password we will get strange errors in sftp logs:
+  # User $USERNAME not allowed because account is locked
+  # If we set the password for the user we don't get that error
+  PASSWORD=${PASSWORD-$(< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c10)}
+  echo -e "$PASSWORD\n$PASSWORD" | passwd $USERNAME
 
   # Mount the data folder in the chroot folder
   if [ $CHROOT == 1 ]; then
