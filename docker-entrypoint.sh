@@ -23,8 +23,8 @@ if [ "$1" == '/usr/sbin/sshd' ]; then
     ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key -N '' -t ecdsa
   fi
 
-  # Create appropriate SFTP user
-  useradd -u $OWNER_UID -M -d $FOLDER -g sftp -s /bin/false $USERNAME
+  # Create appropriate SFTP user if it does not exist
+  groups > /dev/null 2>&1 || useradd -u $OWNER_UID -M -d $FOLDER -g sftp -s /bin/false $USERNAME
 
   # Change sftp password and allow login with password
   if [ "$PASSWORD" != "" ]; then
