@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ex
+set -e
 
 # Allow to run complementary processes or to enter the container without
 # running this init script.
