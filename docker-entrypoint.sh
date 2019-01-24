@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -ex
 
 # Allow to run complementary processes or to enter the container without
 # running this init script.
@@ -24,7 +24,7 @@ if [ "$1" == '/usr/sbin/sshd' ]; then
   fi
 
   # Create appropriate SFTP user if it does not exist
-  groups > /dev/null 2>&1 || useradd -u $OWNER_UID -M -d $FOLDER -g sftp -s /bin/false $USERNAME
+  groups $USERNAME > /dev/null 2>&1 || useradd -u $OWNER_UID -M -d $FOLDER -g sftp -s /bin/false $USERNAME
 
   # Change sftp password and allow login with password
   if [ "$PASSWORD" != "" ]; then
@@ -46,7 +46,7 @@ if [ "$1" == '/usr/sbin/sshd' ]; then
   # Allow using public key
   if [ "$PUBLIC_KEY" != "" ]; then
     mkdir -p $(dirname $AUTHORIZED_KEYS_FILE)
-    echo $PUBLIC_KEY > $AUTHORIZED_KEYS_FILE
+    echo $PUBLIC_KEY >> $AUTHORIZED_KEYS_FILE
   fi
 
   # Allow mounting the authorized keys file from different path
